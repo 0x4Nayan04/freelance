@@ -1,0 +1,1552 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+
+/* ============================================================================
+   DARK THEME ENFORCEMENT - ALWAYS DARK MODE
+   ============================================================================ */
+
+/* Force dark theme globally - this overrides any system preferences */
+:root {
+	color-scheme: dark !important;
+}
+
+/* Ensure dark theme regardless of data attributes */
+html,
+html[data-theme],
+html[data-theme='light'],
+html[data-theme='dark'],
+html[data-theme='system'] {
+	color-scheme: dark !important;
+	background-color: var(--neutral-100, #020b10) !important;
+}
+
+/* Override any potential light theme variables */
+html[data-theme='light'] {
+	--page-background: var(--neutral-100, #020b10) !important;
+	--surface-background: var(--neutral-200, #0b181d) !important;
+	--neutral-on-background-weak: var(--neutral-600, #89989f) !important;
+	--neutral-on-background-medium: var(--neutral-700, #a7b7be) !important;
+	--neutral-on-background-strong: var(--neutral-800, #c7d7df) !important;
+}
+
+/* Force dark theme for system preference override */
+@media (prefers-color-scheme: light) {
+	html,
+	html[data-theme='system'] {
+		color-scheme: dark !important;
+		background-color: var(--neutral-100, #020b10) !important;
+	}
+}
+
+/* Additional enforcement for body element */
+body {
+	background-color: var(--neutral-100, #020b10) !important;
+	color: var(--neutral-on-background-medium, #a7b7be) !important;
+}
+
+/* Force all theme-dependent elements to use dark mode */
+* {
+	color-scheme: dark !important;
+}
+
+:root {
+	/* Custom color scheme matching reference design */
+	/* Generate at: https://once-ui.com/customize */
+
+	--scheme-brand-100: #08002f;
+	--scheme-brand-200: #04025c;
+	--scheme-brand-300: #1f398e;
+	--scheme-brand-400: #3856ae;
+	--scheme-brand-500: #5071cc;
+	--scheme-brand-600: #6f94f1;
+	--scheme-brand-700: #8db3ff;
+	--scheme-brand-800: #b2dbff;
+	--scheme-brand-900: #bfe8ff;
+	--scheme-brand-1000: #ccf6ff;
+	--scheme-brand-1100: #d2fcff;
+	--scheme-brand-1200: #d2fcff;
+	--scheme-brand-600-10: rgba(111, 148, 241, 0.1);
+	--scheme-brand-600-30: rgba(111, 148, 241, 0.3);
+	--scheme-brand-600-50: rgba(111, 148, 241, 0.5);
+
+	--scheme-accent-100: #030b10;
+	--scheme-accent-200: #0d181d;
+	--scheme-accent-300: #364248;
+	--scheme-accent-400: #505d64;
+	--scheme-accent-500: #69777e;
+	--scheme-accent-600: #8a989f;
+	--scheme-accent-700: #a8b7bf;
+	--scheme-accent-800: #c8d7df;
+	--scheme-accent-900: #d5e4ec;
+	--scheme-accent-1000: #e2f1f9;
+	--scheme-accent-1100: #e9f8ff;
+	--scheme-accent-1200: #efffff;
+	--scheme-accent-600-10: rgba(138, 152, 159, 0.1);
+	--scheme-accent-600-30: rgba(138, 152, 159, 0.3);
+	--scheme-accent-600-50: rgba(138, 152, 159, 0.5);
+
+	--scheme-neutral-100: #020b10;
+	--scheme-neutral-200: #0b181d;
+	--scheme-neutral-300: #344248;
+	--scheme-neutral-400: #4f5d64;
+	--scheme-neutral-500: #68777e;
+	--scheme-neutral-600: #89989f;
+	--scheme-neutral-700: #a7b7be;
+	--scheme-neutral-800: #c7d7df;
+	--scheme-neutral-900: #d4e4ec;
+	--scheme-neutral-1000: #e1f2f9;
+	--scheme-neutral-1100: #e7f8ff;
+	--scheme-neutral-1200: #eeffff;
+	--scheme-neutral-600-10: rgba(137, 152, 159, 0.1);
+	--scheme-neutral-600-30: rgba(137, 152, 159, 0.3);
+	--scheme-neutral-600-50: rgba(137, 152, 159, 0.5);
+}
+
+/* ============================================================================
+   RESPONSIVE HEADER NAVIGATION CLASSES
+   ============================================================================ */
+
+/* Desktop behavior: Show labels (hide on small screens only) */
+.s-flex-hide {
+	display: flex !important;
+	align-items: center !important;
+}
+
+/* Mobile behavior: Show icons only (show on small screens only) */
+.s-flex-show {
+	display: none !important;
+}
+
+/* Mobile breakpoint - swap the behavior */
+@media (max-width: 768px) {
+	.s-flex-hide {
+		display: none !important;
+	}
+
+	.s-flex-show {
+		display: flex !important;
+		align-items: center !important;
+	}
+}
+
+/* ============================================================================
+   ANIMATION SYSTEM STANDARDIZATION
+   ============================================================================ */
+
+/* Define standard animation timing system */
+:root {
+	/* Standard timing durations */
+	--animation-duration-micro: 0.1s;
+	--animation-duration-short: 0.15s;
+	--animation-duration-medium: 0.2s;
+	--animation-duration-long: 0.3s;
+
+	/* Standard easing functions */
+	--animation-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+	--animation-easing-accelerate: cubic-bezier(0.4, 0, 1, 1);
+	--animation-easing-decelerate: cubic-bezier(0, 0, 0.2, 1);
+	--animation-easing-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+	/* Standard transform values */
+	--transform-translate-micro: 2px;
+	--transform-translate-small: 4px;
+	--transform-translate-medium: 8px;
+	--transform-scale-subtle: 1.02;
+	--transform-scale-medium: 1.05;
+}
+
+/* Performance optimizations for animated elements */
+[data-carousel],
+.caseStudyCard,
+[data-case-study-card],
+[data-variant='primary'],
+[data-variant='secondary'],
+[data-tag],
+.iframe-container,
+.scroll-to-top button {
+	will-change: transform, opacity, box-shadow;
+	backface-visibility: hidden;
+	transform-style: preserve-3d;
+}
+
+/* ============================================================================
+   TYPOGRAPHY IMPROVEMENTS
+   ============================================================================ */
+
+/* Inter font family for all headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+[data-variant*='heading'],
+[data-variant*='display'] {
+	font-family:
+		'Inter',
+		-apple-system,
+		BlinkMacSystemFont,
+		sans-serif !important;
+}
+
+/* Inter font family for body text with fallbacks */
+p,
+span,
+div,
+[data-variant*='body'],
+[data-variant*='label'] {
+	font-family:
+		'Inter',
+		-apple-system,
+		BlinkMacSystemFont,
+		sans-serif !important;
+}
+
+.instrument-serif-highlight {
+	font-family: 'Instrument Serif', serif;
+	font-weight: 400;
+	font-style: italic;
+	color: white;
+	text-decoration: underline;
+}
+
+/* ============================================================================
+   AUTO CAROUSEL IMPROVEMENTS
+   ============================================================================ */
+
+/* Enhanced carousel styling */
+[data-carousel] {
+	transition: all var(--animation-duration-short)
+		var(--animation-easing-standard);
+	border-radius: 12px;
+	overflow: hidden;
+}
+
+/* Adaptive image handling ONLY for detail page carousels (not cards) */
+/* Target carousels that are NOT inside case study cards */
+:not(.caseStudyCard) [data-carousel] img {
+	object-fit: contain !important;
+	background-color: transparent !important;
+	width: 100% !important;
+	height: 100% !important;
+	transition: transform var(--animation-duration-medium)
+		var(--animation-easing-standard);
+}
+
+/* Keep card carousels with original cropped styling */
+.caseStudyCard [data-carousel] img,
+.caseStudyCard [data-carousel-control] img {
+	object-fit: cover !important;
+	width: 100% !important;
+	height: 100% !important;
+	transition: transform var(--animation-duration-medium)
+		var(--animation-easing-standard);
+}
+
+/* Carousel controls enhancement */
+[data-carousel] button {
+	transition: all var(--animation-duration-micro)
+		var(--animation-easing-standard);
+	backdrop-filter: blur(8px);
+}
+
+[data-carousel] button:hover {
+	transform: scale(var(--transform-scale-medium));
+}
+
+/* Carousel indicators */
+[data-carousel] [data-indicator] {
+	backdrop-filter: blur(8px);
+	border-radius: 8px;
+	transition: all var(--animation-duration-micro)
+		var(--animation-easing-standard);
+}
+
+/* ============================================================================
+   PDF VIEWER STYLING
+   ============================================================================ */
+
+/* ============================================================================
+   PORTABLE TEXT STYLING
+   ============================================================================ */
+
+/* Enhanced portable text typography */
+.portable-text h1,
+.portable-text h2,
+.portable-text h3,
+.portable-text h4,
+.portable-text h5,
+.portable-text h6 {
+	font-family: 'Inter', sans-serif !important;
+	font-weight: 700 !important;
+}
+
+.portable-text p {
+	font-family: 'Inter', sans-serif !important;
+	font-weight: 400 !important;
+}
+
+.portable-text ul,
+.portable-text ol {
+	font-family: 'Inter', sans-serif !important;
+}
+
+.portable-text li {
+	font-family: 'Inter', sans-serif !important;
+}
+
+.portable-text blockquote {
+	font-style: italic !important;
+	border-left: 4px solid var(--brand-alpha-medium) !important;
+	padding-left: 16px !important;
+	margin-left: 0 !important;
+}
+
+/* ============================================================================
+   CASE STUDY TAGS STYLING - MATCHING REFERENCE DESIGN
+   ============================================================================ */
+
+/* Enhanced tag styling to match detail page reference */
+[data-tag] {
+	transition: all 0.2s ease !important;
+	border-radius: 6px !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	white-space: nowrap !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	flex-shrink: 0 !important;
+	box-sizing: border-box !important;
+	font-family: 'Inter', sans-serif !important;
+	font-weight: 500 !important;
+	font-size: 14px !important;
+	line-height: 1 !important;
+	padding: 6px 12px !important;
+}
+
+[data-tag]:hover {
+	transform: translateY(-1px) !important;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Tech stack tags - neutral styling */
+[data-variant='neutral'][data-tag] {
+	background: var(--neutral-alpha-weak) !important;
+	border: 1px solid var(--neutral-alpha-medium) !important;
+	color: var(--neutral-on-background-strong) !important;
+	max-width: 120px !important;
+}
+
+/* Industry tags - brand styling */
+[data-variant='brand'][data-tag] {
+	background: var(--brand-alpha-weak) !important;
+	border: 1px solid var(--brand-alpha-medium) !important;
+	color: var(--brand-on-background-strong) !important;
+	max-width: 130px !important;
+}
+
+/* Specific overrides for Tag component CSS modules */
+[class*='Tag_tag'],
+[class*='Tag_brand'],
+[class*='Tag_s'] {
+	max-width: 130px !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	white-space: nowrap !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	flex-shrink: 0 !important;
+	box-sizing: border-box !important;
+}
+
+/* Ensure manufacturing and longer industry names fit */
+[class*='Tag_brand'] {
+	max-width: 140px !important;
+}
+
+/* Mobile overrides for Tag CSS modules */
+[class*='Tag_tag'],
+[class*='Tag_brand'],
+[class*='Tag_s'] {
+	max-width: 110px !important;
+	font-size: 0.65rem !important;
+	padding: 3px 6px !important;
+}
+
+[class*='Tag_brand'] {
+	max-width: 120px !important;
+}
+
+/* Smaller mobile overrides for Tag CSS modules */
+[class*='Tag_tag'],
+[class*='Tag_brand'],
+[class*='Tag_s'] {
+	max-width: 100px !important;
+	font-size: 0.6rem !important;
+	padding: 2px 6px !important;
+}
+
+[class*='Tag_brand'] {
+	max-width: 110px !important;
+}
+
+/* ============================================================================
+   BADGE STYLING - ENHANCED VISIBILITY AND CONTRAST
+   ============================================================================ */
+
+/* Enhanced badge styling for "Helping companies unlock decisions with data" */
+[data-variant='neutral'][data-textvariant='label-default-s'] {
+	color: var(--neutral-on-background-strong) !important;
+	background: var(--neutral-alpha-medium) !important;
+	border: 1px solid var(--neutral-alpha-strong) !important;
+	font-weight: 500 !important;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Specific badge styling for featured section */
+[data-variant='neutral'][data-textvariant='label-default-s'] [data-gap='4'] {
+	color: var(--neutral-on-background-strong) !important;
+	font-weight: 500 !important;
+}
+
+/* Icon styling within badges */
+[data-variant='neutral'][data-textvariant='label-default-s'] [data-icon] {
+	color: var(--neutral-on-background-strong) !important;
+}
+
+/* Row content within badges */
+[data-variant='neutral'][data-textvariant='label-default-s'] [data-row] {
+	color: var(--neutral-on-background-strong) !important;
+}
+
+/* Ensure high contrast for badge text */
+[data-variant='neutral'][data-textvariant='label-default-s'] span,
+[data-variant='neutral'][data-textvariant='label-default-s'] div {
+	color: var(--neutral-on-background-strong) !important;
+	font-weight: 500 !important;
+}
+
+/* Alternative badge styling with brand colors for better visibility */
+[data-variant='brand'][data-textvariant='label-default-s'] {
+	color: var(--brand-on-background-strong) !important;
+	background: var(--brand-alpha-weak) !important;
+	border: 1px solid var(--brand-alpha-medium) !important;
+	font-weight: 500 !important;
+}
+
+/* ============================================================================
+   IFRAME STYLING IMPROVEMENTS
+   ============================================================================ */
+
+/* Enhanced iframe container */
+.iframe-container {
+	border-radius: 12px !important;
+	overflow: hidden !important;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+	border: 1px solid var(--neutral-alpha-medium) !important;
+	background: var(--surface) !important;
+	transition: all var(--animation-duration-short)
+		var(--animation-easing-standard) !important;
+}
+
+.iframe-container:hover {
+	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16) !important;
+	transform: translateY(calc(-1 * var(--transform-translate-small))) !important;
+}
+
+.iframe-container iframe {
+	border: none !important;
+	display: block !important;
+	width: 100% !important;
+	height: 100% !important;
+}
+
+/* ============================================================================
+   BUTTON IMPROVEMENTS
+   ============================================================================ */
+
+/* External link buttons */
+[data-variant='secondary'] {
+	font-family: 'Inter', sans-serif !important;
+	font-weight: 500 !important;
+	transition: all var(--animation-duration-short)
+		var(--animation-easing-standard) !important;
+}
+
+[data-variant='secondary']:hover {
+	transform: translateY(calc(-1 * var(--transform-translate-small))) !important;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Primary buttons */
+[data-variant='primary'] {
+	font-family: 'Inter', sans-serif !important;
+	font-weight: 600 !important;
+	transition: all var(--animation-duration-short)
+		var(--animation-easing-standard) !important;
+}
+
+[data-variant='primary']:hover {
+	transform: translateY(calc(-1 * var(--transform-translate-small))) !important;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Tertiary buttons - fix icon and text alignment */
+[data-variant='tertiary'],
+.Button_tertiary__jiyNr,
+[class*='Button_tertiary'],
+button[class*='tertiary'] {
+	font-family: 'Inter', sans-serif !important;
+	font-weight: 500 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: flex-start !important;
+	line-height: 1.4 !important;
+	transition: all var(--animation-duration-short)
+		var(--animation-easing-standard) !important;
+}
+
+/* Fix specific Button component classes for icon/text alignment */
+.Button_button__s9JD_,
+[class*='Button_button'] {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: flex-start !important;
+	line-height: 1.4 !important;
+}
+
+/* Ensure icon and text are on same baseline */
+.Button_button__s9JD_ .Icon_s__hHSv2,
+.Button_button__s9JD_ span,
+.Button_button__s9JD_ div,
+[class*='Button_button'] [class*='Icon'],
+[class*='Button_button'] span,
+[class*='Button_button'] div {
+	display: inline-flex !important;
+	align-items: center !important;
+	vertical-align: middle !important;
+	line-height: inherit !important;
+}
+
+/* Medium size button specific alignment */
+.Button_m__I_0ip,
+[class*='Button_m'] {
+	min-height: 40px !important;
+	display: flex !important;
+	align-items: center !important;
+	gap: 8px !important;
+}
+
+/* Fix for all tertiary buttons with icons */
+[data-variant='tertiary'] [data-icon],
+[data-variant='tertiary'] svg,
+[class*='tertiary'] [data-icon],
+[class*='tertiary'] svg {
+	display: inline-flex !important;
+	align-items: center !important;
+	vertical-align: middle !important;
+}
+
+/* Ensure text content aligns properly */
+[data-variant='tertiary'] > *,
+[class*='tertiary'] > * {
+	display: inline-flex !important;
+	align-items: center !important;
+	vertical-align: middle !important;
+}
+
+[data-variant='tertiary']:hover {
+	transform: translateY(calc(-1 * var(--transform-translate-small))) !important;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+/* ============================================================================
+   RESPONSIVE IMPROVEMENTS
+   ============================================================================ */
+
+/* Mobile typography adjustments */
+@media (max-width: 768px) {
+	.portable-text h1 {
+		font-size: 28px !important;
+		line-height: 1.2 !important;
+	}
+
+	.portable-text h2 {
+		font-size: 24px !important;
+		line-height: 1.3 !important;
+	}
+
+	.portable-text h3 {
+		font-size: 20px !important;
+		line-height: 1.3 !important;
+	}
+
+	.portable-text p {
+		font-size: 16px !important;
+		line-height: 1.6 !important;
+	}
+
+	/* Mobile carousel adjustments */
+	[data-carousel] {
+		margin: 0 !important;
+	}
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+	.portable-text h1 {
+		font-size: 32px !important;
+	}
+
+	.portable-text h2 {
+		font-size: 28px !important;
+	}
+}
+
+/* ============================================================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================================================ */
+
+/* Focus states */
+[data-carousel] button:focus-visible,
+[data-tag]:focus-visible {
+	outline: 2px solid var(--brand-on-background-strong) !important;
+	outline-offset: 2px !important;
+}
+
+/* Comprehensive reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+	/* Disable all animations and transitions */
+	*,
+	*::before,
+	*::after,
+	[data-carousel],
+	.iframe-container,
+	[data-tag],
+	[data-variant='secondary'],
+	[data-variant='primary'],
+	.caseStudyCard,
+	[data-case-study-card],
+	.scroll-to-top button,
+	[data-revealf] {
+		transition: none !important;
+		animation: none !important;
+		transform: none !important;
+		will-change: auto !important;
+	}
+
+	/* Maintain only opacity changes for accessibility */
+	[data-carousel] button:hover,
+	[data-tag]:hover,
+	[data-variant='secondary']:hover,
+	[data-variant='primary']:hover,
+	.caseStudyCard:hover,
+	.iframe-container:hover {
+		transform: none !important;
+		opacity: 0.8;
+	}
+}
+
+/* ============================================================================
+   EXISTING STYLES (keeping all previous styles intact)
+   ============================================================================ */
+
+/* Ensure consistent grid alignment and card spacing */
+[data-grid] {
+	display: grid !important;
+	align-items: stretch !important;
+	grid-auto-rows: 1fr !important;
+}
+
+[data-grid] > * {
+	display: flex !important;
+	flex-direction: column !important;
+	height: 100% !important;
+	min-height: 520px !important; /* Consistent minimum height */
+}
+
+/* Grid Container Fixes */
+[data-columns='2'] {
+	display: grid !important;
+	grid-template-columns: repeat(2, 1fr) !important;
+	align-items: stretch !important;
+	grid-auto-rows: 1fr !important;
+}
+
+[data-columns='1'] {
+	display: grid !important;
+	grid-template-columns: 1fr !important;
+	align-items: stretch !important;
+	grid-auto-rows: 1fr !important;
+}
+
+/* Modern Case Study Card Layout Fixes */
+.caseStudyCard,
+[data-case-study-card] {
+	/* Ensure consistent sizing */
+	width: 100% !important;
+	height: 100% !important;
+	display: flex !important;
+	flex-direction: column !important;
+	box-sizing: border-box !important;
+	max-width: none !important;
+	transition: all 0.15s ease-in-out !important;
+	min-height: 520px !important; /* Force consistent height */
+}
+
+/* Link wrapper for cards should behave properly */
+a[href*='/work/'] {
+	display: block !important;
+	text-decoration: none !important;
+	color: inherit !important;
+	width: 100% !important;
+	height: 100% !important;
+	min-height: 520px !important;
+}
+
+/* Ensure equal height cards */
+[data-card] {
+	height: 100% !important;
+	display: flex !important;
+	flex-direction: column !important;
+	flex: 1 !important;
+	min-height: 520px !important;
+}
+
+/* Content spacing within cards */
+[data-card] > [data-column] {
+	flex: 1 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: space-between !important;
+}
+
+/* Prevent carousel from interfering with card navigation */
+[data-carousel-control='true'] {
+	position: relative !important;
+	z-index: 2 !important;
+}
+
+/* Link wrapper for cards should behave properly */
+a[href*='/work/'] {
+	display: block !important;
+	text-decoration: none !important;
+	color: inherit !important;
+	width: 100% !important;
+}
+
+/* Ensure proper hover states for accessibility */
+a[href*='/work/']:focus-visible {
+	outline: 2px solid var(--brand-on-background-strong) !important;
+	outline-offset: 2px !important;
+	border-radius: 8px !important;
+}
+
+/* Grid Container Fixes */
+[data-columns='2'] {
+	display: grid !important;
+	grid-template-columns: repeat(2, 1fr) !important;
+	align-items: stretch !important;
+	gap: clamp(12px, 2.5vw, 16px) !important;
+}
+
+[data-columns='1'] {
+	display: grid !important;
+	grid-template-columns: 1fr !important;
+	align-items: stretch !important;
+}
+
+/* Ensure equal height cards */
+[data-card] {
+	height: 100% !important;
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+/* Content spacing within cards */
+[data-card] > [data-column] {
+	flex: 1 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: space-between !important;
+}
+
+/* ============================================================================
+   CAROUSEL INTERACTION FIXES
+   ============================================================================ */
+
+/* Ensure carousel controls have proper z-index and interactions */
+[data-carousel-control='true'] .carousel-indicators,
+[data-carousel-control='true'] .carousel-controls {
+	z-index: 10;
+	pointer-events: auto;
+}
+
+[data-carousel-control='true'] button {
+	pointer-events: auto !important;
+	z-index: 11;
+}
+
+/* ============================================================================
+   MOBILE BLUR REMOVAL (Enhanced)
+   ============================================================================ */
+
+/* Remove blur effects on tablets and mobile devices for better readability */
+@media (max-width: 1024px) {
+	*,
+	*::before,
+	*::after {
+		backdrop-filter: none !important;
+		-webkit-backdrop-filter: none !important;
+	}
+
+	[data-header] {
+		backdrop-filter: none !important;
+		-webkit-backdrop-filter: none !important;
+		background: var(--page-background) !important;
+		border-bottom: 1px solid var(--neutral-alpha-weak) !important;
+	}
+
+	/* Ensure readability on mobile */
+	[data-header] * {
+		backdrop-filter: none !important;
+		-webkit-backdrop-filter: none !important;
+	}
+}
+
+/* Universal backdrop filter removal for mobile */
+@media (hover: none) and (pointer: coarse) {
+	* {
+		backdrop-filter: none !important;
+		-webkit-backdrop-filter: none !important;
+	}
+}
+
+/* Enhanced Auto Carousel */
+
+/* ============================================================================
+   HYDRATION FIX & BODY STYLING
+   ============================================================================ */
+
+/* Ensure consistent body styling to prevent hydration errors */
+body {
+	min-height: 100vh !important;
+	overflow: hidden auto !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Force consistent class application */
+body[class*='display-flex'] {
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	min-width: 0 !important;
+	width: 100% !important;
+}
+
+/* ============================================================================
+   MOBILE RESPONSIVENESS IMPROVEMENTS
+   ============================================================================ */
+
+/* Mobile typography adjustments */
+@media (max-width: 768px) {
+	.portable-text h1 {
+		font-size: 28px !important;
+		line-height: 1.2 !important;
+	}
+
+	.portable-text h2 {
+		font-size: 24px !important;
+		line-height: 1.3 !important;
+	}
+
+	.portable-text h3 {
+		font-size: 20px !important;
+		line-height: 1.3 !important;
+	}
+
+	.portable-text p {
+		font-size: 16px !important;
+		line-height: 1.6 !important;
+	}
+
+	/* Mobile carousel adjustments */
+	[data-carousel] {
+		margin: 0 !important;
+		padding: 0 var(--responsive-space-s) !important;
+	}
+
+	/* Mobile footer overflow fix */
+	footer {
+		width: 100% !important;
+		max-width: 100% !important;
+		overflow-x: hidden !important;
+		position: relative !important;
+		margin-bottom: 0 !important;
+		padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+	}
+
+	/* Mobile viewport constraints */
+	html,
+	body {
+		overflow-x: hidden !important;
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	/* Mobile card responsive improvements */
+	[data-grid] {
+		padding: 0 var(--responsive-space-m) !important;
+		gap: var(--responsive-space-m) !important;
+	}
+
+	/* Card layout improvements for mobile */
+	[data-grid] > * {
+		width: 100% !important;
+		max-width: 100% !important;
+		flex-basis: 100% !important;
+		margin: 0 !important;
+		min-height: 460px !important; /* Consistent mobile height optimized */
+	}
+
+	/* Ensure cards take full width on mobile */
+	[data-card] {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		min-height: 460px !important; /* Mobile-optimized height */
+	}
+
+	/* Case study cards mobile optimization */
+	.caseStudyCard,
+	[data-case-study-card] {
+		width: 100% !important;
+		margin: 0 !important;
+		max-width: none !important;
+		box-sizing: border-box !important;
+		min-height: 460px !important; /* Mobile-specific height optimized */
+	}
+
+	/* Link wrapper mobile adjustments */
+	a[href*='/work/'] {
+		min-height: 460px !important;
+	}
+
+	/* Mobile-optimized typography - reduced sizes for better readability */
+	[data-variant*='heading-strong-l'] {
+		font-size: clamp(1.1rem, 4vw, 1.25rem) !important;
+		line-height: 1.3 !important;
+		font-weight: 700 !important;
+	}
+
+	[data-variant*='body-default-m'] {
+		font-size: clamp(0.8rem, 2.5vw, 0.875rem) !important;
+		line-height: 1.5 !important;
+	}
+
+	/* Mobile carousel responsive sizing */
+	[data-carousel] {
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	/* Grid container mobile responsiveness */
+	[data-columns='2'] {
+		grid-template-columns: 1fr !important;
+		gap: clamp(12px, 3vw, 16px) !important;
+	}
+
+	/* Tags on mobile - optimized for readability */
+	[data-tag] {
+		font-size: 11px !important;
+		padding: 4px 8px !important;
+		border-radius: 6px !important;
+		font-weight: 500 !important;
+		white-space: nowrap !important;
+		max-width: 100px !important;
+		overflow: hidden !important;
+		text-overflow: ellipsis !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		flex-shrink: 0 !important;
+	}
+
+	/* Row components mobile direction */
+	[data-mobile-direction='column'] {
+		flex-direction: column !important;
+		gap: var(--responsive-space-s) !important;
+	}
+
+	/* Enhanced spacing for mobile content */
+	[data-gap='s'] {
+		gap: var(--responsive-space-s) !important;
+	}
+
+	[data-gap='m'] {
+		gap: var(--responsive-space-s) !important;
+	}
+
+	[data-gap='l'] {
+		gap: var(--responsive-space-m) !important;
+	}
+
+	/* Mobile-specific padding adjustments */
+	[data-padding='m'] {
+		padding: var(--responsive-space-m) !important;
+	}
+
+	[data-padding='l'] {
+		padding: var(--responsive-space-m) !important;
+	}
+
+	/* Featured work section mobile optimizations */
+	.featured-work-section {
+		padding-left: var(--responsive-space-m) !important;
+		padding-right: var(--responsive-space-m) !important;
+		gap: var(--responsive-space-m) !important;
+	}
+}
+
+/* ============================================================================
+   SCROLL TO TOP STYLING
+   ============================================================================ */
+
+/*
+  This targets the button inside the scroll-to-top component.
+  Using [data-variant='primary'] makes the selector highly specific
+  to override the default library styles for the primary button.
+*/
+.scroll-to-top button[data-variant='primary'] {
+	background-color: white !important;
+	color: #111 !important; /* A dark color for the icon */
+	border: 1px solid rgba(0, 0, 0, 0.08) !important;
+	box-shadow:
+		0 4px 8px rgba(0, 0, 0, 0.05),
+		0 1px 3px rgba(0, 0, 0, 0.1) !important;
+	border-radius: 50% !important;
+	width: 48px !important;
+	height: 48px !important;
+	transition: all var(--animation-duration-medium)
+		var(--animation-easing-standard) !important;
+}
+
+.scroll-to-top button[data-variant='primary']:hover {
+	transform: translateY(
+		calc(-1 * var(--transform-translate-medium))
+	) !important;
+	box-shadow:
+		0 8px 16px rgba(0, 0, 0, 0.08),
+		0 4px 6px rgba(0, 0, 0, 0.12) !important;
+}
+
+.scroll-to-top button[data-variant='primary']:active {
+	transform: translateY(calc(-1 * var(--transform-translate-small))) !important;
+	box-shadow:
+		0 4px 8px rgba(0, 0, 0, 0.05),
+		0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Smooth scroll behavior */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Focus states for accessibility */
+.scroll-to-top button[data-variant='primary']:focus-visible {
+	outline: 2px solid #3856ae !important; /* Using a brand color for focus */
+	outline-offset: 2px !important;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+	.scroll-to-top {
+		bottom: 32px !important; /* More space on mobile */
+		right: 24px !important;
+	}
+
+	.scroll-to-top button[data-variant='primary'] {
+		width: 44px !important;
+		height: 44px !important;
+	}
+}
+
+/* This section is now handled by the comprehensive reduced motion support above */
+
+/* ============================================================================
+   MODERN CASE STUDY CARD LAYOUT ENHANCEMENTS
+   ============================================================================ */
+
+/* Base card styling */
+.caseStudyCard,
+[data-case-study-card] {
+	width: 100% !important;
+	height: 100% !important;
+	display: flex !important;
+	flex-direction: column !important;
+	box-sizing: border-box !important;
+	max-width: none !important;
+	transition: all 0.15s ease-in-out !important;
+}
+
+/* Link wrapper for cards */
+a[href*='/work/'] {
+	display: block !important;
+	text-decoration: none !important;
+	color: inherit !important;
+	width: 100% !important;
+}
+
+/* Grid Container Fixes */
+[data-columns='2'] {
+	display: grid !important;
+	grid-template-columns: repeat(2, 1fr) !important;
+	align-items: stretch !important;
+	gap: clamp(12px, 2.5vw, 16px) !important;
+}
+
+[data-columns='1'] {
+	display: grid !important;
+	grid-template-columns: 1fr !important;
+	align-items: stretch !important;
+}
+
+/* ============================================================================
+   MOBILE OPTIMIZATIONS FOR COMPLETE WIDTH COVERAGE
+   ============================================================================ */
+
+@media (max-width: 768px) {
+	/* Force single column on mobile with minimal padding */
+	[data-columns='2'],
+	[data-columns='3'] {
+		grid-template-columns: 1fr !important;
+		gap: clamp(12px, 3vw, 16px) !important;
+		width: 100% !important;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+
+	/* Modern case study cards mobile optimization */
+	.caseStudyCard,
+	[data-case-study-card] {
+		min-height: 280px !important;
+	}
+
+	/* Ensure grid containers use full width with minimal padding */
+	[data-grid] {
+		width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		padding-left: 8px !important;
+		padding-right: 8px !important;
+		box-sizing: border-box !important;
+	}
+
+	/* Case study cards mobile optimization */
+	.caseStudyCard,
+	[data-case-study-card] {
+		width: 100% !important;
+		margin: 0 !important;
+		max-width: none !important;
+		box-sizing: border-box !important;
+	}
+
+	/* Grid parent containers on mobile - minimal padding */
+	[data-padding='l'],
+	[data-paddingx='l'],
+	[data-paddingx='xl'] {
+		padding-left: 8px !important;
+		padding-right: 8px !important;
+	}
+
+	/* Container width fixes for mobile */
+	[data-column][data-fillwidth='true'] {
+		width: 100% !important;
+		max-width: 100% !important;
+		box-sizing: border-box !important;
+	}
+
+	/* Remove any constraining margins */
+	[data-revealf] {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		width: 100% !important;
+	}
+
+	/* Carousel sizing on mobile */
+	[data-carousel] {
+		margin: 0 !important;
+		width: 100% !important;
+	}
+
+	/* Mobile-optimized typography - reduced sizes for better readability */
+	[data-variant*='heading-strong-l'] {
+		font-size: clamp(1.1rem, 4vw, 1.25rem) !important;
+		line-height: 1.3 !important;
+		font-weight: 700 !important;
+	}
+
+	[data-variant*='body-default-m'] {
+		font-size: clamp(0.8rem, 2.5vw, 0.875rem) !important;
+		line-height: 1.5 !important;
+	}
+
+	/* Mobile carousel responsive sizing */
+	[data-carousel] {
+		width: 100% !important;
+		max-width: 100% !important;
+	}
+
+	/* Grid container mobile responsiveness */
+	[data-columns='2'] {
+		grid-template-columns: 1fr !important;
+		gap: clamp(12px, 3vw, 16px) !important;
+	}
+
+	/* Tags on mobile - optimized for readability */
+	[data-tag] {
+		font-size: 11px !important;
+		padding: 4px 8px !important;
+		border-radius: 6px !important;
+		font-weight: 500 !important;
+		white-space: nowrap !important;
+		max-width: 100px !important;
+		overflow: hidden !important;
+		text-overflow: ellipsis !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		flex-shrink: 0 !important;
+	}
+
+	/* Row components mobile direction */
+	[data-mobile-direction='column'] {
+		flex-direction: column !important;
+		gap: clamp(8px, 2vw, 12px) !important;
+	}
+
+	/* Enhanced spacing for mobile content - optimized */
+	[data-gap='s'] {
+		gap: clamp(6px, 1.5vw, 10px) !important;
+	}
+
+	[data-gap='m'] {
+		gap: clamp(8px, 2vw, 12px) !important;
+	}
+
+	[data-gap='l'] {
+		gap: clamp(12px, 3vw, 16px) !important;
+	}
+
+	/* Mobile-specific padding adjustments - minimal */
+	[data-padding='m'] {
+		padding: 8px !important;
+	}
+
+	[data-padding='l'] {
+		padding: 8px !important;
+	}
+
+	/* Featured work section mobile optimizations */
+	.featured-work-section {
+		padding-left: 8px !important;
+		padding-right: 8px !important;
+		gap: clamp(12px, 3vw, 16px) !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		box-sizing: border-box !important;
+	}
+
+	/* Mobile carousel adjustments */
+	[data-carousel] {
+		margin: 0 !important;
+		width: 100% !important;
+		box-sizing: border-box !important;
+	}
+}
+
+/* ============================================================================
+   MOBILE FOOTER FIX
+   ============================================================================ */
+
+@media (max-width: 640px) {
+	.body-wrapper {
+		/* Creates space at the bottom for the fixed mobile nav, preventing overlap */
+		padding-bottom: 120px !important;
+	}
+}
+
+/* ============================================================================
+   FILTER MODAL CHECKBOX FIXES
+   ============================================================================ */
+
+/* Fix checkbox styling in filter modal to prevent semi-circle background overlaps */
+.checkbox-wrapper input[type='checkbox'] {
+	border-radius: 4px !important;
+	width: 18px !important;
+	height: 18px !important;
+	border: 1px solid var(--neutral-alpha-medium) !important;
+	background: transparent !important;
+	overflow: hidden !important;
+	box-sizing: border-box !important;
+	position: relative !important;
+}
+
+.checkbox-wrapper input[type='checkbox']:checked {
+	background: var(--brand-solid-medium) !important;
+	border-color: var(--brand-solid-medium) !important;
+}
+
+.checkbox-wrapper {
+	display: flex !important;
+	align-items: center !important;
+	width: 100% !important;
+}
+
+/* Ensure clean checkbox rendering across all filter components */
+[data-dialog] input[type='checkbox'] {
+	appearance: none !important;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	border-radius: 4px !important;
+	width: 18px !important;
+	height: 18px !important;
+	border: 1px solid var(--neutral-alpha-medium) !important;
+	background: transparent !important;
+	overflow: hidden !important;
+	box-sizing: border-box !important;
+	position: relative !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+[data-dialog] input[type='checkbox']:checked {
+	background: var(--brand-solid-medium) !important;
+	border-color: var(--brand-solid-medium) !important;
+}
+
+[data-dialog] input[type='checkbox']:checked::after {
+	content: '✓' !important;
+	position: absolute !important;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	color: white !important;
+	font-size: 12px !important;
+	font-weight: bold !important;
+}
+
+/* === CASE STUDY CARD GRID LAYOUT FIXES === */
+/* Ensure consistent grid behavior matching reference design */
+
+/* Force equal height cards in grid */
+[data-grid][data-columns='2'] {
+	display: grid !important;
+	grid-template-columns: repeat(2, 1fr) !important;
+	gap: 64px !important;
+	align-items: stretch !important;
+}
+
+[data-grid][data-columns='2'] > * {
+	display: flex !important;
+	flex-direction: column !important;
+	height: 100% !important;
+	min-height: 0 !important;
+}
+
+/* Ensure cards within grid items stretch to full height */
+[data-grid] [data-card] {
+	height: 100% !important;
+	display: flex !important;
+	flex-direction: column !important;
+	min-height: 400px !important;
+}
+
+/* Case study card specific fixes */
+.caseStudyCard {
+	height: 100% !important;
+	display: flex !important;
+	flex-direction: column !important;
+}
+
+/* Ensure content section flexes properly */
+.caseStudyCard [data-column] {
+	flex: 1 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: space-between !important;
+}
+
+/* Mobile responsive grid adjustments */
+@media (max-width: 768px) {
+	[data-grid][data-columns='2'] {
+		grid-template-columns: 1fr !important;
+		gap: 32px !important;
+	}
+
+	[data-grid] [data-card] {
+		min-height: 320px !important;
+	}
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+	[data-grid][data-columns='2'] {
+		gap: 48px !important;
+	}
+
+	[data-grid] [data-card] {
+		min-height: 380px !important;
+	}
+}
+
+/* Flex container for tags to handle overflow properly */
+[data-gap='8'][data-wrap='true'] {
+	flex-wrap: wrap !important;
+	overflow: hidden !important;
+	align-items: flex-start !important;
+}
+
+/* Ensure tag containers don't exceed their parent width */
+[data-gap='8'][data-wrap='true'] > * {
+	flex-shrink: 1 !important;
+	min-width: 0 !important;
+}
+
+/* ============================================================================
+   CASE STUDY TEXT CLAMP - CONSISTENT ACROSS ALL COMPONENTS
+   ============================================================================ */
+
+/* Ensure all case study summary text is consistently clamped to 3 lines */
+.case-study-summary,
+.card-description,
+[data-case-study-card] .case-study-summary {
+	display: -webkit-box !important;
+	-webkit-line-clamp: 3 !important;
+	line-clamp: 3 !important;
+	-webkit-box-orient: vertical !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	line-height: 1.5 !important;
+	word-break: break-word !important;
+	height: auto !important;
+	max-height: none !important;
+}
+
+/* ============================================================================
+   IMPROVED SECTION ALIGNMENT AND SPACING
+   ============================================================================ */
+
+/* Fix baseline alignment for case study page content */
+[data-as='section'] {
+	line-height: 1 !important;
+}
+
+[data-as='section'] [data-column] {
+	align-items: stretch !important;
+}
+
+/* Ensure consistent spacing between content sections */
+[data-as='section'] > [data-column] > [data-column]:last-child {
+	margin-bottom: 0 !important;
+}
+
+/* Fix gap inconsistencies */
+[data-gap='xl'] {
+	gap: clamp(48px, 6vw, 64px) !important;
+}
+
+/* Remove unwanted margins and whitespace */
+[data-revealf] {
+	margin: 0 !important;
+}
+
+[data-revealf] + [data-revealf] {
+	margin-top: 0 !important;
+}
+
+/* Ensure proper section spacing */
+.section-content {
+	line-height: 1 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Fix button alignment in navigation */
+[data-variant='primary'][data-size='s'] {
+	line-height: 1.4 !important;
+	display: flex !important;
+	align-items: center !important;
+}
+
+/* Mobile responsive styling improvements */
+@media (max-width: 768px) {
+	/* Ensure proper spacing on mobile */
+	[data-gap='xl'] {
+		gap: 32px !important;
+	}
+}
+
+/* ============================================================================
+   MOBILE VIEWPORT CONSTRAINTS - PREVENT HORIZONTAL OVERFLOW
+   ============================================================================ */
+
+@media (max-width: 768px) {
+	/* Global overflow prevention */
+	html,
+	body {
+		overflow-x: hidden !important;
+		width: 100% !important;
+		max-width: 100vw !important;
+	}
+
+	/* Grid containers - zero padding approach */
+	[data-grid],
+	.grid-responsive,
+	[data-columns='2'],
+	[data-columns='1'] {
+		width: 100% !important;
+		max-width: 100vw !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		box-sizing: border-box !important;
+		overflow-x: hidden !important;
+	}
+
+	/* Case study card containers - full width */
+	.caseStudyCard,
+	[data-case-study-card],
+	a[href*='/work/'] {
+		width: 100% !important;
+		max-width: 100vw !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	/* RevealFx containers - zero padding */
+	[data-revealf] {
+		width: 100% !important;
+		max-width: 100vw !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		padding-left: 0 !important;
+		padding-right: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	/* Grid wrapper containers - full width */
+	div[style*='width: 100%'],
+	div[style*='maxWidth: 500px'] {
+		width: 100% !important;
+		max-width: 100vw !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+	}
+
+	/* Main layout container spacing */
+	[data-padding='8'] {
+		padding-left: 8px !important;
+		padding-right: 8px !important;
+	}
+}

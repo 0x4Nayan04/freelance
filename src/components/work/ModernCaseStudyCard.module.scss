@@ -1,0 +1,144 @@
+.caseStudyCard {
+	transition: all var(--animation-duration-short)
+		var(--animation-easing-standard);
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	min-height: 520px; // Consistent height for desktop
+	will-change: transform, box-shadow, border-color;
+	backface-visibility: hidden;
+
+	&:hover {
+		transform: translateY(calc(-1 * var(--transform-translate-medium)));
+		box-shadow: var(--shadow-l);
+		border-color: var(--brand-border-medium);
+	}
+
+	&:active {
+		transform: translateY(calc(-1 * var(--transform-translate-small)));
+		box-shadow: var(--shadow-m);
+	}
+
+	&:focus-within {
+		outline: 2px solid var(--brand-on-background-strong);
+		outline-offset: 2px;
+	}
+
+	/* Mobile Responsive Styling - Fixed containment */
+	@media (max-width: 640px) {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin: 0 auto !important;
+		min-height: 480px !important;
+		box-sizing: border-box !important;
+		overflow: hidden !important;
+
+		/* Ensure the card stays within viewport bounds */
+		&:not(:last-child) {
+			margin-bottom: 24px !important;
+		}
+
+		/* More subtle hover effect for mobile */
+		&:hover {
+			transform: translateY(calc(-1 * var(--transform-translate-micro)));
+			box-shadow: var(--shadow-s);
+		}
+
+		&:active {
+			transform: none;
+			box-shadow: var(--shadow-xs);
+		}
+	}
+
+	/* Small tablet adjustments */
+	@media (max-width: 768px) and (min-width: 641px) {
+		min-height: 480px;
+
+		&:hover {
+			transform: translateY(calc(-1 * var(--transform-translate-small)));
+			box-shadow: var(--shadow-m);
+		}
+	}
+
+	/* Large tablet responsive adjustments */
+	@media (max-width: 1024px) and (min-width: 769px) {
+		min-height: 500px;
+
+		&:hover {
+			transform: translateY(calc(-1 * var(--transform-translate-small)));
+			box-shadow: var(--shadow-m);
+		}
+	}
+
+	/* Large desktop optimization */
+	@media (min-width: 1200px) {
+		min-height: 540px;
+	}
+
+	/* Ultra-wide screen optimization */
+	@media (min-width: 1440px) {
+		min-height: 560px;
+	}
+
+	/* Ensure proper aspect ratio preservation */
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		transition: transform var(--animation-duration-medium)
+			var(--animation-easing-standard);
+	}
+
+	/* Improved carousel styling */
+	[data-carousel-control] {
+		height: 100%;
+		width: 100%;
+		position: relative;
+
+		/* Ensure images fill container properly */
+		img {
+			transition: transform var(--animation-duration-medium)
+				var(--animation-easing-standard);
+		}
+
+		&:hover img {
+			transform: scale(var(--transform-scale-subtle));
+		}
+	}
+
+	/* Better tag layout on smaller screens */
+	@media (max-width: 480px) {
+		.tagRow {
+			gap: 6px !important;
+		}
+
+		.tag {
+			font-size: 0.6rem !important;
+			padding: 4px 8px !important;
+		}
+	}
+
+	/* Reduced motion support */
+	@media (prefers-reduced-motion: reduce) {
+		transition: none !important;
+		will-change: auto !important;
+
+		&:hover,
+		&:active {
+			transform: none !important;
+			opacity: 0.9;
+		}
+
+		img,
+		[data-carousel-control] img {
+			transition: none !important;
+		}
+
+		[data-carousel-control]:hover img {
+			transform: none !important;
+		}
+	}
+}
